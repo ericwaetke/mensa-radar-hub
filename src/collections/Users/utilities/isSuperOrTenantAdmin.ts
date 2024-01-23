@@ -48,8 +48,8 @@ export const isSuperOrTenantAdmin = async (args: { req: PayloadRequest }): Promi
   }
 
   // finally check if the user is an admin of this tenant
-  const tenantWithUser = user?.tenants?.find(({ tenant: userTenant }) =>
-    foundTenants.docs.some(({ id }) => id === userTenant?.id)
+  const tenantWithUser = user?.tenants?.find(
+    ({ tenant: userTenant }) => foundTenants.docs.some(({ id }) => id === userTenant?.id)
   )
 
   if (logs) {
