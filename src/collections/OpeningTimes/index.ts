@@ -8,7 +8,7 @@ import { tenants } from './access/tenants'
 export const OpeningTimes: CollectionConfig = {
   slug: 'opening-times',
   admin: {
-    useAsTitle: 'day',
+    useAsTitle: 'title',
     defaultColumns: ['day', 'from', 'to', 'updatedAt'],
     group: {
       de: 'Mensa Informationen',
@@ -33,65 +33,32 @@ export const OpeningTimes: CollectionConfig = {
   },
   fields: [
     {
-      name: 'day',
-      type: 'select',
-      required: true,
-      hasMany: false,
-      label: {
-        de: 'Tag',
-        en: 'Day',
+      name: "title",
+      type: "text",
+      admin: {
+        hidden: true, // hides the field from the admin panel
       },
-      options: [
-        {
-          label: {
-            de: 'Montag',
-            en: 'Monday',
+      hooks: {
+        beforeChange: [
+          ({ siblingData }) => {
+            // ensures data is not stored in DB
+            delete siblingData["title"];
           },
-          value: 'monday',
-        },
-        {
-          label: {
-            de: 'Dienstag',
-            en: 'Tuesday',
+        ],
+        afterRead: [
+          ({ data, context }) => {
+            const { from, to } = data
+            const fromDate = new Date(from)
+            const toDate = new Date(to)
+            const fromHours = fromDate.getHours()
+            const fromMinutes = fromDate.getMinutes()
+            const toHours = toDate.getHours()
+            const toMinutes = toDate.getMinutes()
+            return `${fromHours}:${String(fromMinutes).padStart(2, '0')} - ${toHours}:${String(toMinutes).padStart(2, '0')}`
+
           },
-          value: 'tuesday',
-        },
-        {
-          label: {
-            de: 'Mittwoch',
-            en: 'Wednesday',
-          },
-          value: 'wednesday',
-        },
-        {
-          label: {
-            de: 'Donnerstag',
-            en: 'Thursday',
-          },
-          value: 'thursday',
-        },
-        {
-          label: {
-            de: 'Freitag',
-            en: 'Friday',
-          },
-          value: 'friday',
-        },
-        {
-          label: {
-            de: 'Samstag',
-            en: 'Saturday',
-          },
-          value: 'saturday',
-        },
-        {
-          label: {
-            de: 'Sonntag',
-            en: 'Sunday',
-          },
-          value: 'sunday',
-        },
-      ],
+        ],
+      },
     },
     {
       type: 'row',
@@ -106,7 +73,7 @@ export const OpeningTimes: CollectionConfig = {
           admin: {
             date: {
               pickerAppearance: 'timeOnly',
-              displayFormat: 'H:mm:ss',
+              displayFormat: 'H:mm',
               timeIntervals: 15,
               timeFormat: 'H:mm',
             },

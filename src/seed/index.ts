@@ -16,15 +16,13 @@ export const seed = async (payload: Payload): Promise<void> => {
     await payload.create({
       collection: 'tenants',
       data: {
-        name: 'ABC',
-        // domains: [{ domain: 'abc.localhost.com:3000' }],
+        name: 'Cafe Nerds',
       },
     }),
     await payload.create({
       collection: 'tenants',
       data: {
-        name: 'BBC',
-        // domains: [{ domain: 'bbc.localhost.com:3000' }],
+        name: 'Studentenwerk Potsdam',
       },
     }),
   ])
@@ -83,34 +81,6 @@ export const seed = async (payload: Payload): Promise<void> => {
           {
             tenant: bbc.id,
             roles: ['user'],
-          },
-        ],
-      },
-    }),
-  ])
-
-  // create tenant-scoped pages
-  await Promise.all([
-    await payload.create({
-      collection: 'pages',
-      data: {
-        tenant: abc.id,
-        title: 'ABC Home',
-        richText: [
-          {
-            text: 'Hello, ABC!',
-          },
-        ],
-      },
-    }),
-    await payload.create({
-      collection: 'pages',
-      data: {
-        title: 'BBC Home',
-        tenant: bbc.id,
-        richText: [
-          {
-            text: 'Hello, BBC!',
           },
         ],
       },
