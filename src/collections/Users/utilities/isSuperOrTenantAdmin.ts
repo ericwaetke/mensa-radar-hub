@@ -2,7 +2,7 @@ import type { PayloadRequest } from 'payload/dist/types'
 
 import { isSuperAdmin } from '../../../utilities/isSuperAdmin'
 
-const logs = false
+const logs = true
 
 export const isSuperOrTenantAdmin = async (args: { req: PayloadRequest }): Promise<boolean> => {
   const {
@@ -23,13 +23,13 @@ export const isSuperOrTenantAdmin = async (args: { req: PayloadRequest }): Promi
   // read `req.headers.host`, lookup the tenant by `domain` to ensure it exists, and check if the user is an admin of that tenant
   const foundTenants = await payload.find({
     collection: 'tenants',
-    where: {
-      'domains.domain': {
-        in: [req.headers.host],
-      },
-    },
+    // where: {
+    //   'domains.domain': {
+    //     in: [req.headers.host],
+    //   },
+    // },
     depth: 0,
-    limit: 1,
+    limit: 1000,
   })
 
   // if this tenant does not exist, deny access
@@ -48,13 +48,18 @@ export const isSuperOrTenantAdmin = async (args: { req: PayloadRequest }): Promi
   }
 
   // finally check if the user is an admin of this tenant
-  const tenantWithUser = user?.tenants?.find(
-    ({ tenant: userTenant }) => userTenant?.id === foundTenants.docs[0].id,
+  const tenantWithUser = user?.tenants?.find(({ tenant: userTenant }) =>
+    foundTenants.docs.some(({ id }) => id === userTenant?.id)
   )
+
+  if (logs) {
+    const msg = `tenant with user: ${tenantWithUser}`
+    payload.logger.info({ msg })
+  }
 
   if (tenantWithUser?.roles?.some(role => role === 'admin')) {
     if (logs) {
-      const msg = `User is an admin of ${foundTenants.docs[0].name}, allowing access`
+      const msg = `User is an admin of ${tenantWithUser.tenant.name}, allowing access`
       payload.logger.info({ msg })
     }
 
@@ -62,7 +67,7 @@ export const isSuperOrTenantAdmin = async (args: { req: PayloadRequest }): Promi
   }
 
   if (logs) {
-    const msg = `User is not an admin of ${foundTenants.docs[0].name}, denying access`
+    const msg = `User is not an admin of ${tenantWithUser.tenant.name}, denying access`
     payload.logger.info({ msg })
   }
 

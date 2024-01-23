@@ -41,10 +41,6 @@ export interface User {
 export interface Tenant {
   id: string
   name: string
-  domains?: {
-    domain: string
-    id?: string
-  }[]
   updatedAt: string
   createdAt: string
 }
@@ -67,14 +63,14 @@ export interface PayloadPreference {
   }
   key?: string
   value?:
-    | {
-        [k: string]: unknown
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
-    | null
+  | {
+    [k: string]: unknown
+  }
+  | unknown[]
+  | string
+  | number
+  | boolean
+  | null
   updatedAt: string
   createdAt: string
 }

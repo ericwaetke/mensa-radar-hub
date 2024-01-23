@@ -10,12 +10,15 @@ dotenv.config({
 import { postgresAdapter } from '@payloadcms/db-postgres'
 import { buildConfig } from 'payload/config'
 
-import { Pages } from './collections/Pages'
+import { OpeningTimes } from './collections/OpeningTimes'
+import { Recipe } from './collections/Recipes/Recipe'
 import { Tenants } from './collections/Tenants'
 import { Users } from './collections/Users'
+import { MensaInfo } from './globals/MensaInfo'
 
 export default buildConfig({
-  collections: [Users, Tenants, Pages],
+  collections: [Users, Tenants, OpeningTimes, Recipe],
+  globals: [MensaInfo],
   admin: {
     bundler: webpackBundler(),
     webpack: config => ({

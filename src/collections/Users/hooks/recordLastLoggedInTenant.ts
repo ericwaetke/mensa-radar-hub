@@ -4,11 +4,6 @@ export const recordLastLoggedInTenant: AfterLoginHook = async ({ req, user }) =>
   try {
     const relatedOrg = await req.payload.find({
       collection: 'tenants',
-      where: {
-        'domains.domain': {
-          in: [req.headers.host],
-        },
-      },
       depth: 0,
       limit: 1,
     })

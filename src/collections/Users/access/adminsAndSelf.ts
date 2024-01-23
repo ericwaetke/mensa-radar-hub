@@ -1,7 +1,7 @@
 import type { Access } from 'payload/config'
 
+import type { User } from '../../../payload-types'
 import { isSuperAdmin } from '../../../utilities/isSuperAdmin'
-import { User } from '../../../payload-types'
 
 export const adminsAndSelf: Access<any, User> = async ({ req: { user } }) => {
   if (user) {
@@ -22,32 +22,32 @@ export const adminsAndSelf: Access<any, User> = async ({ req: { user } }) => {
         },
         ...(isSuper
           ? [
-              {
-                'tenants.tenant': {
-                  in: [
-                    typeof user?.lastLoggedInTenant === 'string'
-                      ? user?.lastLoggedInTenant
-                      : user?.lastLoggedInTenant?.id,
-                  ].filter(Boolean),
-                },
+            {
+              'tenants.tenant': {
+                in: [
+                  typeof user?.lastLoggedInTenant === 'string'
+                    ? user?.lastLoggedInTenant
+                    : user?.lastLoggedInTenant?.id,
+                ].filter(Boolean),
               },
-            ]
+            },
+          ]
           : [
-              {
-                'tenants.tenant': {
-                  in:
-                    user?.tenants
-                      ?.map(({ tenant, roles }) =>
-                        roles.includes('admin')
-                          ? typeof tenant === 'string'
-                            ? tenant
-                            : tenant.id
-                          : null,
-                      ) // eslint-disable-line function-paren-newline
-                      .filter(Boolean) || [],
-                },
+            {
+              'tenants.tenant': {
+                in:
+                  user?.tenants
+                    ?.map(({ tenant, roles }) =>
+                      roles.includes('admin')
+                        ? typeof tenant === 'string'
+                          ? tenant
+                          : tenant.id
+                        : null
+                    ) // eslint-disable-line function-paren-newline
+                    .filter(Boolean) || [],
               },
-            ]),
+            },
+          ]),
       ],
     }
   }
