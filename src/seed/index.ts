@@ -12,7 +12,7 @@ export const seed = async (payload: Payload): Promise<void> => {
   })
 
   // create tenants, use `*.localhost.com` so that accidentally forgotten changes the hosts file are acceptable
-  const [abc, bbc] = await Promise.all([
+  const [cafenerds, stwpotsdam] = await Promise.all([
     await payload.create({
       collection: 'tenants',
       data: {
@@ -37,7 +37,7 @@ export const seed = async (payload: Payload): Promise<void> => {
         roles: ['user'],
         tenants: [
           {
-            tenant: abc.id,
+            tenant: cafenerds.id,
             roles: ['admin'],
           },
         ],
@@ -51,7 +51,7 @@ export const seed = async (payload: Payload): Promise<void> => {
         roles: ['user'],
         tenants: [
           {
-            tenant: abc.id,
+            tenant: cafenerds.id,
             roles: ['user'],
           },
         ],
@@ -65,7 +65,7 @@ export const seed = async (payload: Payload): Promise<void> => {
         roles: ['user'],
         tenants: [
           {
-            tenant: bbc.id,
+            tenant: stwpotsdam.id,
             roles: ['admin'],
           },
         ],
@@ -79,10 +79,64 @@ export const seed = async (payload: Payload): Promise<void> => {
         roles: ['user'],
         tenants: [
           {
-            tenant: bbc.id,
+            tenant: stwpotsdam.id,
             roles: ['user'],
           },
         ],
+      },
+    }),
+  ])
+
+  // Create Mensen
+  await Promise.all([
+    await payload.create({
+      collection: 'mensa-info',
+      data: {
+        name: 'Mensa Golm',
+        slug: 'mensa-golm',
+        address: {
+          street: 'Am Neuen Palais',
+          houseNumber: '10',
+          city: 'Potsdam',
+          zipCode: '14469',
+          longitude: 52.4005,
+          latitude: 13.0188,
+        },
+        description: [{ "children": [{ "text": "Dies ist die Mensa Golm" }] }],
+        id: 1
+      },
+    }),
+    await payload.create({
+      collection: 'mensa-info',
+      data: {
+        name: 'Mensa Griebnitzsee',
+        slug: 'mensa-griebnitzsee',
+        address: {
+          street: 'August-Bebel-Str.',
+          houseNumber: '89',
+          city: 'Potsdam',
+          zipCode: '14482',
+          longitude: 52.4005,
+          latitude: 13.0188,
+        },
+        description: [{ "children": [{ "text": "Dies ist die Mensa Griebnitzsee" }] }],
+        id: 2
+      },
+    }),
+    await payload.create({
+      collection: 'mensa-info',
+      data: {
+        name: 'Mensa Brandenburg an der Havel',
+        slug: 'mensa-brandenburg',
+        address: {
+          street: 'Magdeburger Str.',
+          houseNumber: '50',
+          city: 'Brandenburg an der Havel',
+          zipCode: '14770',
+          longitude: 52.4005,
+          latitude: 13.0188,
+        },
+        description: [{ "children": [{ "text": "Dies ist die Mensa Brandenburg" }] }],
       },
     }),
   ])

@@ -14,6 +14,7 @@ export const MensaInfo: CollectionConfig = {
 			de: 'Mensa Informationen',
 			en: 'Canteen Information',
 		},
+		useAsTitle: 'name',
 	},
 	labels: {
 		singular: {
@@ -51,7 +52,7 @@ export const MensaInfo: CollectionConfig = {
 				position: 'sidebar',
 			},
 			hooks: {
-				beforeValidate: [formatSlug('title')],
+				beforeValidate: [formatSlug('name')],
 			},
 		},
 		{
@@ -64,14 +65,10 @@ export const MensaInfo: CollectionConfig = {
 			fields: [
 				{
 					type: 'row',
-					label: {
-						de: 'Mensa Standort',
-						en: 'Mensa Location',
-					},
 					fields: [
 						{
 							name: 'latitude',
-							type: 'text',
+							type: 'number',
 							label: {
 								de: 'Breitengrad',
 								en: 'Latitude',
@@ -80,7 +77,7 @@ export const MensaInfo: CollectionConfig = {
 						},
 						{
 							name: 'longitude',
-							type: 'text',
+							type: 'number',
 							label: {
 								de: 'Längengrad',
 								en: 'Longitude',
@@ -89,6 +86,54 @@ export const MensaInfo: CollectionConfig = {
 						},
 					],
 				},
+				{
+					type: 'row',
+					fields: [
+						{
+							name: 'street',
+							type: 'text',
+							label: {
+								de: 'Straße',
+								en: 'Street',
+							},
+						},
+						{
+							name: 'houseNumber',
+							type: 'text',
+							admin: {
+								width: '25%',
+							},
+							label: {
+								de: 'Hausnummer',
+								en: 'House Number',
+							},
+						},
+					]
+				},
+				{
+					type: 'row',
+					fields: [
+						{
+							name: 'zipCode',
+							type: 'text',
+							admin: {
+								width: '25%',
+							},
+							label: {
+								de: 'Postleitzahl',
+								en: 'Zip Code',
+							},
+						},
+						{
+							name: 'city',
+							type: 'text',
+							label: {
+								de: 'Stadt',
+								en: 'City',
+							},
+						}
+					]
+				}
 			],
 		},
 		{
@@ -185,41 +230,4 @@ export const MensaInfo: CollectionConfig = {
 		},
 		tenant,
 	],
-}
-
-function openingTimes() {
-	return [
-		{
-			name: 'from',
-			label: {
-				de: 'Von',
-				en: 'From',
-			},
-			type: 'date',
-			admin: {
-				date: {
-					pickerAppearance: 'timeOnly',
-					displayFormat: 'H:mm:ss',
-					timeIntervals: 15,
-					timeFormat: 'H:mm',
-				},
-			},
-		},
-		{
-			name: 'to',
-			label: {
-				de: 'Bis',
-				en: 'To',
-			},
-			type: 'date',
-			admin: {
-				date: {
-					pickerAppearance: 'timeOnly',
-					displayFormat: 'H:mm',
-					timeIntervals: 15,
-					timeFormat: 'H:mm',
-				},
-			},
-		},
-	]
 }
