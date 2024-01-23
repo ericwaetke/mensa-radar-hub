@@ -14,11 +14,11 @@ import { OpeningTimes } from './collections/OpeningTimes'
 import { Recipe } from './collections/Recipes/Recipe'
 import { Tenants } from './collections/Tenants'
 import { Users } from './collections/Users'
-import { MensaInfo } from './globals/MensaInfo'
+import { MensaInfo } from './collections/MensaInfo'
 
 export default buildConfig({
-  collections: [Users, Tenants, OpeningTimes, Recipe],
-  globals: [MensaInfo],
+  collections: [Users, Tenants, OpeningTimes, Recipe, MensaInfo],
+  globals: [],
   admin: {
     bundler: webpackBundler(),
     webpack: config => ({

@@ -1,11 +1,11 @@
-import type { GlobalConfig } from 'payload/types'
+import type { CollectionConfig } from 'payload/types'
 
 import { tenant } from '../../fields/tenant'
 import { tenantAdmins } from './access/tenantAdmins'
 import { tenants } from './access/tenants'
 import formatSlug from './hooks/formatSlug'
 
-export const MensaInfo: GlobalConfig = {
+export const MensaInfo: CollectionConfig = {
   slug: 'mensa-info',
   admin: {
     // defaultColumns: ['day', 'from', 'to', 'updatedAt'],
@@ -14,9 +14,15 @@ export const MensaInfo: GlobalConfig = {
       en: 'Canteen Information',
     },
   },
-  label: {
-    en: 'Mensa Informations',
-    de: 'Mensa Informationen',
+  labels: {
+    singular: {
+      en: 'Canteen',
+      de: 'Mensa',
+    },
+    plural: {
+      en: 'Canteens',
+      de: 'Mensen',
+    },
   },
   access: {
     read: tenants,
