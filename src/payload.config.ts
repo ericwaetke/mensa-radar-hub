@@ -15,9 +15,12 @@ import { Recipe } from './collections/Recipes/Recipe'
 import { Tenants } from './collections/Tenants'
 import { Users } from './collections/Users'
 import { MensaInfo } from './collections/MensaInfo'
+import { Additives } from './collections/Recipes/Additives'
+import { Allergens } from './collections/Recipes/Allergens'
+import { Serving } from './collections/Recipes/Serving'
 
 export default buildConfig({
-  collections: [Users, Tenants, OpeningTimes, Recipe, MensaInfo],
+  collections: [Users, Tenants, OpeningTimes, Recipe, MensaInfo, Additives, Allergens, Serving],
   globals: [],
   admin: {
     bundler: viteBundler(),

@@ -2,7 +2,7 @@ import type { CollectionConfig } from 'payload/types'
 
 import { tenant } from '../../fields/tenant'
 import { tenantAdmins } from './access/tenantAdmins'
-import { tenants } from './access/tenants'
+import { tenants } from '../../access/tenants'
 import formatSlug from './hooks/formatSlug'
 import { loggedIn } from './access/loggedIn'
 

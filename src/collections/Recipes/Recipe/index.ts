@@ -3,7 +3,7 @@ import type { CollectionConfig } from 'payload/types'
 import { tenant } from '../../../fields/tenant'
 import { loggedIn } from './access/loggedIn'
 import { tenantAdmins } from './access/tenantAdmins'
-import { tenants } from './access/tenants'
+import { tenants } from '../../../access/tenants'
 
 export const Recipe: CollectionConfig = {
   slug: 'recipes',
@@ -105,7 +105,6 @@ export const Recipe: CollectionConfig = {
                 step: 0.01,
                 width: '33%',
               },
-              required: true,
             },
             {
               type: 'number',
@@ -118,7 +117,6 @@ export const Recipe: CollectionConfig = {
                 step: 0.01,
                 width: '33%',
               },
-              required: true,
             },
             {
               type: 'number',
@@ -131,7 +129,6 @@ export const Recipe: CollectionConfig = {
                 step: 0.01,
                 width: '33%',
               },
-              required: true,
             },
           ],
         },
@@ -159,7 +156,7 @@ export const Recipe: CollectionConfig = {
                 en: 'Calories',
               },
               admin: {
-                width: '33%',
+                width: '50%',
               },
             },
             {
@@ -170,7 +167,7 @@ export const Recipe: CollectionConfig = {
                 en: 'Protein',
               },
               admin: {
-                width: '33%',
+                width: '50%',
               },
             },
             {
@@ -181,14 +178,9 @@ export const Recipe: CollectionConfig = {
                 en: 'Carbs',
               },
               admin: {
-                width: '33%',
+                width: '50%',
               },
             },
-          ],
-        },
-        {
-          type: 'row',
-          fields: [
             {
               type: 'number',
               name: 'fat',
@@ -211,11 +203,6 @@ export const Recipe: CollectionConfig = {
                 width: '50%',
               },
             },
-          ],
-        },
-        {
-          type: 'row',
-          fields: [
             {
               type: 'number',
               name: 'sugar',
@@ -236,11 +223,35 @@ export const Recipe: CollectionConfig = {
               },
               admin: {
                 width: '50%',
+                style: {
+                  marginBottom: 0,
+                  maxWidth: '50%',
+                },
               },
             },
           ],
         },
       ],
+    },
+    {
+      type: 'relationship',
+      name: 'additives',
+      relationTo: 'additives',
+      label: {
+        de: 'Zusatzstoffe',
+        en: 'Additives',
+      },
+      hasMany: true,
+    },
+    {
+      type: 'relationship',
+      name: 'allergens',
+      relationTo: 'allergens',
+      label: {
+        de: 'Allergene',
+        en: 'Allergens',
+      },
+      hasMany: true,
     },
     tenant,
   ],

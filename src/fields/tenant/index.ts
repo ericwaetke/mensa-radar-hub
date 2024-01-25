@@ -31,8 +31,8 @@ export const tenant: Field = {
           return data.tenant
         }
 
-        if (user?.lastLoggedInTenant?.id) {
-          return user.lastLoggedInTenant.id
+        if (user?.tenants?.length > 0) {
+          return user.tenants[0]?.tenant?.id
         }
 
         return undefined

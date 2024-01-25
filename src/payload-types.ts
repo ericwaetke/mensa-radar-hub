@@ -61,10 +61,10 @@ export interface Recipe {
   id: number;
   title: string;
   diet: 'vegetarian' | 'vegan' | 'meat' | 'fish';
-  price: {
-    students: number;
-    employee: number;
-    other: number;
+  price?: {
+    students?: number | null;
+    employee?: number | null;
+    other?: number | null;
   };
   nutrients?: {
     calories?: number | null;
