@@ -1,4 +1,4 @@
-import { webpackBundler } from '@payloadcms/bundler-webpack'
+import { viteBundler } from '@payloadcms/bundler-vite'
 import { slateEditor } from '@payloadcms/richtext-slate'
 import dotenv from 'dotenv'
 import path from 'path'
@@ -20,17 +20,21 @@ export default buildConfig({
   collections: [Users, Tenants, OpeningTimes, Recipe, MensaInfo],
   globals: [],
   admin: {
-    bundler: webpackBundler(),
-    webpack: config => ({
+    bundler: viteBundler(),
+    vite: (config) => ({
       ...config,
-      resolve: {
-        ...config.resolve,
-        alias: {
-          ...config.resolve.alias,
-          dotenv: path.resolve(__dirname, './dotenv.js'),
+      server: {
+        ...config.server,
+        proxy: {
+          ...config.server.proxy,
+          '/api': {
+            target: 'http://localhost:3000',
+            changeOrigin: true,
+            ws: true,
+          },
         },
       },
-    }),
+    })
   },
   editor: slateEditor({}),
   db: postgresAdapter({

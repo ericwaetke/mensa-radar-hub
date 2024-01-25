@@ -28,9 +28,9 @@ export const MensaInfo: CollectionConfig = {
 	},
 	access: {
 		read: tenants,
-		// create: loggedIn,
+		create: loggedIn,
 		update: tenantAdmins,
-		// delete: tenantAdmins,
+		delete: tenantAdmins,
 	},
 	fields: [
 		{

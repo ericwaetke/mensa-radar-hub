@@ -23,7 +23,7 @@ export const Users: CollectionConfig = {
   },
   hooks: {
     afterChange: [loginAfterCreate],
-    afterLogin: [recordLastLoggedInTenant],
+    // afterLogin: [recordLastLoggedInTenant],
   },
   fields: [
     {

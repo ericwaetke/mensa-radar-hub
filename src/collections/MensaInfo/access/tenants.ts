@@ -2,12 +2,14 @@ import type { Access } from 'payload/types'
 
 import { isSuperAdmin } from '../../../utilities/isSuperAdmin'
 
-export const tenants: Access = ({ req: { user }, data }) =>
+// export const tenants: Access = ({ req: { user }, data }) =>
+export const tenants: Access = ({ req: { user }, doc }) =>
   // individual documents
-  (data?.tenant?.id && user?.lastLoggedInTenant?.id === data.tenant.id) ||
-  (!user?.lastLoggedInTenant?.id && isSuperAdmin(user)) || {
+  (doc?.tenant?.id && user?.tenants[0]?.tenant?.id === doc.tenant.id) ||
+  (!user?.tenants[0]?.tenant?.id && isSuperAdmin(user)) || {
     // list of documents
     tenant: {
-      equals: user?.lastLoggedInTenant?.id,
+      equals: user?.tenants[0]?.tenant?.id,
     },
   }
+
