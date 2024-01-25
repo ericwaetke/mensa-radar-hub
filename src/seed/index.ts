@@ -103,7 +103,8 @@ export const seed = async (payload: Payload): Promise<void> => {
           latitude: 13.0188,
         },
         description: [{ "children": [{ "text": "Dies ist die Mensa Golm" }] }],
-        id: 1
+        id: 1,
+        tenant: cafenerds.id,
       },
     }),
     await payload.create({
@@ -120,7 +121,8 @@ export const seed = async (payload: Payload): Promise<void> => {
           latitude: 13.0188,
         },
         description: [{ "children": [{ "text": "Dies ist die Mensa Griebnitzsee" }] }],
-        id: 2
+        id: 2,
+        tenant: stwpotsdam.id,
       },
     }),
     await payload.create({
@@ -137,6 +139,8 @@ export const seed = async (payload: Payload): Promise<void> => {
           latitude: 13.0188,
         },
         description: [{ "children": [{ "text": "Dies ist die Mensa Brandenburg" }] }],
+        id: 3,
+        tenant: stwpotsdam.id,
       },
     }),
   ])
