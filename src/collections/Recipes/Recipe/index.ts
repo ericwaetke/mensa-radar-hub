@@ -40,6 +40,7 @@ export const Recipe: CollectionConfig = {
         de: 'Essenstitel',
         en: 'Meal Title',
       },
+      unique: true,
     },
     {
       type: 'select',
@@ -227,6 +228,46 @@ export const Recipe: CollectionConfig = {
                   marginBottom: 0,
                   maxWidth: '50%',
                 },
+              },
+            },
+          ],
+        },
+      ],
+    },
+    {
+      type: 'group',
+      name: 'sustainability',
+      label: {
+        de: 'Nachhaltigkeit',
+        en: 'Sustainability',
+      },
+      admin: {
+        width: '100%',
+      },
+      fields: [
+        {
+          type: 'row',
+          fields: [
+            {
+              type: 'number',
+              name: 'co2',
+              label: {
+                de: 'CO2',
+                en: 'CO2',
+              },
+              admin: {
+                width: '50%',
+              },
+            },
+            {
+              type: 'number',
+              name: 'water',
+              label: {
+                de: 'Wasser',
+                en: 'Water',
+              },
+              admin: {
+                width: '50%',
               },
             },
           ],
